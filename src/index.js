@@ -7,6 +7,7 @@ import Demo3 from './demo3';
 import Solution1 from './solution1';
 import Solution2 from './solution2';
 import Solution3 from './solution3';
+import Suggestion from './suggestion';
 import reportWebVitals from './reportWebVitals';
 
 const Container = (props) => {
@@ -17,6 +18,7 @@ const Container = (props) => {
     1: Demo1,
     2: Demo2,
     3: Demo3,
+    4: Suggestion,
   };
   const App = demos[value];
   return (
@@ -26,10 +28,15 @@ const Container = (props) => {
           <option value="1">demo1</option>
           <option value="2">demo2</option>
           <option value="3">demo3</option>
+          <option value="4">suggestion</option>
         </select>
       </div>
-      <Question showAnwser={showAnwser} setShowSolution={setShowSolution} setShowAnwser={setShowAnwser} value={value} />
-      {showSolution ? <Solution value={value} /> : <App />}
+      {value === '4' ? <App /> : (
+        <>
+          <Question showAnwser={showAnwser} setShowSolution={setShowSolution} setShowAnwser={setShowAnwser} value={value} />
+          {showSolution ? <Solution value={value} /> : <App />}
+        </>
+      )}
     </>
   );
 }
@@ -66,7 +73,8 @@ const Question = props => {
         社区有很多状态库, redux等等, 这里安利一个 context库 
         <a href="https://github.com/dai-shi/use-context-selector">https://github.com/dai-shi/use-context-selector</a>
       </div>
-    )
+    ),
+    4: <div>建议</div>
   };
 
   return (
