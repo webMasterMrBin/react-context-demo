@@ -4,6 +4,7 @@ import React, {
   useReducer
 } from "react";
 
+
 import {
   createContext,
   useContextSelector,
@@ -13,9 +14,10 @@ const MyContextValue = createContext();
 
 const ComponentUsingOnlySetter = () => {
   const setValue = useContextSelector(MyContextValue, state => {
-    console.log('state', state);
+    // console.log('state', state);
     return state.setValue;
   });
+
   console.log("setter value render");
   return (
     <button type="button" onClick={() => setValue(`${Math.random()}`)}>

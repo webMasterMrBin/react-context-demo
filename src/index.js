@@ -4,11 +4,13 @@ import './index.css';
 import Demo1 from './demo1';
 import Demo2 from './demo2';
 import Demo3 from './demo3';
+import Demo4 from './demo4';
 import Solution1 from './solution1';
 import Solution2 from './solution2';
 import Solution3 from './solution3';
+import Solution4 from './solution4';
 import Suggestion from './suggestion';
-import reportWebVitals from './reportWebVitals';
+import ContextWorks from './contextWorks';
 
 const Container = (props) => {
   const [value, setValue] = useState('1');
@@ -19,16 +21,22 @@ const Container = (props) => {
     2: Demo2,
     3: Demo3,
     4: Suggestion,
+    5: Demo4,
   };
   const App = demos[value];
   return (
     <>
       <div>
-        <select value={value} onChange={e => setValue(e.target.value)}>
+        <select value={value} onChange={e => {
+          setValue(e.target.value);
+          setShowAnwser(false);
+          setShowSolution(false);
+        }}>
           <option value="1">demo1</option>
           <option value="2">demo2</option>
           <option value="3">demo3</option>
           <option value="4">suggestion</option>
+          <option style={{ color: 'red' }} value="5">基础知识 re-render after parent component</option>
         </select>
       </div>
       {value === '4' ? <App /> : (
@@ -46,7 +54,8 @@ const Question = props => {
   const questions = {
     1: <div>Q: 分别点击change value, change count, render根组件app后, 各组件渲染情况</div>,
     2: <div>Q: 如何解决context按需订阅的state按需更新? </div>,
-    3: <div>Q: 大佬们如何解决or更简单的方案</div>  
+    3: <div>Q: 大佬们如何解决or更简单的方案</div>,
+    5: <div>Q: 为什么子组件会在父组件render后默认render, 以及解决方法</div>  
   };
   const answers = {
     1: (
@@ -74,7 +83,8 @@ const Question = props => {
         <a href="https://github.com/dai-shi/use-context-selector">https://github.com/dai-shi/use-context-selector</a>
       </div>
     ),
-    4: <div>建议</div>
+    4: <div>建议</div>,
+    5: <div>see solution code</div>
   };
 
   return (
@@ -92,6 +102,7 @@ const Solution = props => {
     1: Solution1,
     2: Solution2,
     3: Solution3,
+    5: Solution4,
   }
   const App = solutions[props.value];
   return <App />;
@@ -101,8 +112,3 @@ ReactDOM.render(
   <Container />,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
